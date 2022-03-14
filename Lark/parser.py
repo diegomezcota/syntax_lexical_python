@@ -5,10 +5,10 @@ little_duck = parser.parse
 
 test_files = ['test1.in', 'test2.in', 'test3.in', 'test4.in']
 
-for test in test_files:
+for i, test in enumerate(test_files):
     try:
         s = open('tests/' + test, 'r').read()
         little_duck(s).pretty()
-        print("Apropiado")
+        print("test no.", i + 1, ": Apropiado")
     except Exception:
-        print("No apropiado")
+        print("test no.", i + 1, ": No apropiado")
