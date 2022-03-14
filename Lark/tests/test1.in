@@ -1,0 +1,10 @@
+program a;
+var a32112421 : float; a, b, c : int; x : float;
+{
+    a = b - c > d;
+    if (a) {
+        b = f - d;
+    } else {
+        print(cte_string);
+    };
+}

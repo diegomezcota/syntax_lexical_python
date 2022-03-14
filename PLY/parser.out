@@ -1,0 +1,1318 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> PROGRAM ID SEMICOLON programa1
+Rule 2     programa1 -> vars bloque
+Rule 3     programa1 -> bloque
+Rule 4     vars -> VAR vars1
+Rule 5     vars1 -> type_def
+Rule 6     vars1 -> type_def vars1
+Rule 7     type_def -> ID id_list COLON tipo SEMICOLON
+Rule 8     id_list -> empty
+Rule 9     id_list -> COMMA ID id_list
+Rule 10    tipo -> INT
+Rule 11    tipo -> FLOAT
+Rule 12    bloque -> OPEN_KEY bloque1 CLOSE_KEY
+Rule 13    bloque1 -> empty
+Rule 14    bloque1 -> estatuto bloque1
+Rule 15    estatuto -> asignacion
+Rule 16    estatuto -> condicion
+Rule 17    estatuto -> escritura
+Rule 18    asignacion -> ID ASSIGN expresion SEMICOLON
+Rule 19    expresion -> exp expresion1
+Rule 20    expresion1 -> list_comp exp
+Rule 21    expresion1 -> empty
+Rule 22    list_comp -> LESS_THAN
+Rule 23    list_comp -> GREATER_THAN
+Rule 24    list_comp -> NOT_EQUAL
+Rule 25    escritura -> PRINT OPEN_PARENTHESIS print_arg escritura1 CLOSE_PARENTHESIS SEMICOLON
+Rule 26    escritura1 -> COMMA print_arg escritura1
+Rule 27    escritura1 -> empty
+Rule 28    print_arg -> expresion
+Rule 29    print_arg -> CTE_STRING
+Rule 30    condicion -> IF OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS bloque condicion1 SEMICOLON
+Rule 31    condicion1 -> ELSE bloque
+Rule 32    condicion1 -> empty
+Rule 33    exp -> termino exp1
+Rule 34    exp1 -> exp2 exp1
+Rule 35    exp1 -> empty
+Rule 36    exp2 -> PLUS termino
+Rule 37    exp2 -> MINUS termino
+Rule 38    termino -> factor termino1
+Rule 39    termino1 -> termino2 factor termino1
+Rule 40    termino1 -> empty
+Rule 41    termino2 -> PRODUCT
+Rule 42    termino2 -> DIVISION
+Rule 43    factor -> var_cte
+Rule 44    factor -> OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
+Rule 45    factor -> factor1 var_cte
+Rule 46    factor1 -> PLUS
+Rule 47    factor1 -> MINUS
+Rule 48    var_cte -> CTE_OR
+Rule 49    var_cte -> ID
+Rule 50    var_cte -> CTE_ARROW_UP
+Rule 51    empty -> <empty>
+
+Terminals, with rules where they appear
+
+ASSIGN               : 18
+CLOSE_KEY            : 12
+CLOSE_PARENTHESIS    : 25 30 44
+COLON                : 7
+COMMA                : 9 26
+CTE_ARROW_UP         : 50
+CTE_OR               : 48
+CTE_STRING           : 29
+DIVISION             : 42
+ELSE                 : 31
+FLOAT                : 11
+GREATER_THAN         : 23
+ID                   : 1 7 9 18 49
+IF                   : 30
+INT                  : 10
+LESS_THAN            : 22
+MINUS                : 37 47
+NOT_EQUAL            : 24
+OPEN_KEY             : 12
+OPEN_PARENTHESIS     : 25 30 44
+PLUS                 : 36 46
+PRINT                : 25
+PRODUCT              : 41
+PROGRAM              : 1
+SEMICOLON            : 1 7 18 25 30
+VAR                  : 4
+error                : 
+
+Nonterminals, with rules where they appear
+
+asignacion           : 15
+bloque               : 2 3 30 31
+bloque1              : 12 14
+condicion            : 16
+condicion1           : 30
+empty                : 8 13 21 27 32 35 40
+escritura            : 17
+escritura1           : 25 26
+estatuto             : 14
+exp                  : 19 20
+exp1                 : 33 34
+exp2                 : 34
+expresion            : 18 28 30 44
+expresion1           : 19
+factor               : 38 39
+factor1              : 45
+id_list              : 7 9
+list_comp            : 20
+print_arg            : 25 26
+programa             : 0
+programa1            : 1
+termino              : 33 36 37
+termino1             : 38 39
+termino2             : 39
+tipo                 : 7
+type_def             : 5 6
+var_cte              : 43 45
+vars                 : 2
+vars1                : 4 6
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . PROGRAM ID SEMICOLON programa1
+
+    PROGRAM         shift and go to state 2
+
+    programa                       shift and go to state 1
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (1) programa -> PROGRAM . ID SEMICOLON programa1
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) programa -> PROGRAM ID . SEMICOLON programa1
+
+    SEMICOLON       shift and go to state 4
+
+
+state 4
+
+    (1) programa -> PROGRAM ID SEMICOLON . programa1
+    (2) programa1 -> . vars bloque
+    (3) programa1 -> . bloque
+    (4) vars -> . VAR vars1
+    (12) bloque -> . OPEN_KEY bloque1 CLOSE_KEY
+
+    VAR             shift and go to state 8
+    OPEN_KEY        shift and go to state 9
+
+    programa1                      shift and go to state 5
+    vars                           shift and go to state 6
+    bloque                         shift and go to state 7
+
+state 5
+
+    (1) programa -> PROGRAM ID SEMICOLON programa1 .
+
+    $end            reduce using rule 1 (programa -> PROGRAM ID SEMICOLON programa1 .)
+
+
+state 6
+
+    (2) programa1 -> vars . bloque
+    (12) bloque -> . OPEN_KEY bloque1 CLOSE_KEY
+
+    OPEN_KEY        shift and go to state 9
+
+    bloque                         shift and go to state 10
+
+state 7
+
+    (3) programa1 -> bloque .
+
+    $end            reduce using rule 3 (programa1 -> bloque .)
+
+
+state 8
+
+    (4) vars -> VAR . vars1
+    (5) vars1 -> . type_def
+    (6) vars1 -> . type_def vars1
+    (7) type_def -> . ID id_list COLON tipo SEMICOLON
+
+    ID              shift and go to state 13
+
+    vars1                          shift and go to state 11
+    type_def                       shift and go to state 12
+
+state 9
+
+    (12) bloque -> OPEN_KEY . bloque1 CLOSE_KEY
+    (13) bloque1 -> . empty
+    (14) bloque1 -> . estatuto bloque1
+    (51) empty -> .
+    (15) estatuto -> . asignacion
+    (16) estatuto -> . condicion
+    (17) estatuto -> . escritura
+    (18) asignacion -> . ID ASSIGN expresion SEMICOLON
+    (30) condicion -> . IF OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS bloque condicion1 SEMICOLON
+    (25) escritura -> . PRINT OPEN_PARENTHESIS print_arg escritura1 CLOSE_PARENTHESIS SEMICOLON
+
+    CLOSE_KEY       reduce using rule 51 (empty -> .)
+    ID              shift and go to state 20
+    IF              shift and go to state 21
+    PRINT           shift and go to state 22
+
+    bloque1                        shift and go to state 14
+    empty                          shift and go to state 15
+    estatuto                       shift and go to state 16
+    asignacion                     shift and go to state 17
+    condicion                      shift and go to state 18
+    escritura                      shift and go to state 19
+
+state 10
+
+    (2) programa1 -> vars bloque .
+
+    $end            reduce using rule 2 (programa1 -> vars bloque .)
+
+
+state 11
+
+    (4) vars -> VAR vars1 .
+
+    OPEN_KEY        reduce using rule 4 (vars -> VAR vars1 .)
+
+
+state 12
+
+    (5) vars1 -> type_def .
+    (6) vars1 -> type_def . vars1
+    (5) vars1 -> . type_def
+    (6) vars1 -> . type_def vars1
+    (7) type_def -> . ID id_list COLON tipo SEMICOLON
+
+    OPEN_KEY        reduce using rule 5 (vars1 -> type_def .)
+    ID              shift and go to state 13
+
+    type_def                       shift and go to state 12
+    vars1                          shift and go to state 23
+
+state 13
+
+    (7) type_def -> ID . id_list COLON tipo SEMICOLON
+    (8) id_list -> . empty
+    (9) id_list -> . COMMA ID id_list
+    (51) empty -> .
+
+    COMMA           shift and go to state 26
+    COLON           reduce using rule 51 (empty -> .)
+
+    id_list                        shift and go to state 24
+    empty                          shift and go to state 25
+
+state 14
+
+    (12) bloque -> OPEN_KEY bloque1 . CLOSE_KEY
+
+    CLOSE_KEY       shift and go to state 27
+
+
+state 15
+
+    (13) bloque1 -> empty .
+
+    CLOSE_KEY       reduce using rule 13 (bloque1 -> empty .)
+
+
+state 16
+
+    (14) bloque1 -> estatuto . bloque1
+    (13) bloque1 -> . empty
+    (14) bloque1 -> . estatuto bloque1
+    (51) empty -> .
+    (15) estatuto -> . asignacion
+    (16) estatuto -> . condicion
+    (17) estatuto -> . escritura
+    (18) asignacion -> . ID ASSIGN expresion SEMICOLON
+    (30) condicion -> . IF OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS bloque condicion1 SEMICOLON
+    (25) escritura -> . PRINT OPEN_PARENTHESIS print_arg escritura1 CLOSE_PARENTHESIS SEMICOLON
+
+    CLOSE_KEY       reduce using rule 51 (empty -> .)
+    ID              shift and go to state 20
+    IF              shift and go to state 21
+    PRINT           shift and go to state 22
+
+    estatuto                       shift and go to state 16
+    bloque1                        shift and go to state 28
+    empty                          shift and go to state 15
+    asignacion                     shift and go to state 17
+    condicion                      shift and go to state 18
+    escritura                      shift and go to state 19
+
+state 17
+
+    (15) estatuto -> asignacion .
+
+    ID              reduce using rule 15 (estatuto -> asignacion .)
+    IF              reduce using rule 15 (estatuto -> asignacion .)
+    PRINT           reduce using rule 15 (estatuto -> asignacion .)
+    CLOSE_KEY       reduce using rule 15 (estatuto -> asignacion .)
+
+
+state 18
+
+    (16) estatuto -> condicion .
+
+    ID              reduce using rule 16 (estatuto -> condicion .)
+    IF              reduce using rule 16 (estatuto -> condicion .)
+    PRINT           reduce using rule 16 (estatuto -> condicion .)
+    CLOSE_KEY       reduce using rule 16 (estatuto -> condicion .)
+
+
+state 19
+
+    (17) estatuto -> escritura .
+
+    ID              reduce using rule 17 (estatuto -> escritura .)
+    IF              reduce using rule 17 (estatuto -> escritura .)
+    PRINT           reduce using rule 17 (estatuto -> escritura .)
+    CLOSE_KEY       reduce using rule 17 (estatuto -> escritura .)
+
+
+state 20
+
+    (18) asignacion -> ID . ASSIGN expresion SEMICOLON
+
+    ASSIGN          shift and go to state 29
+
+
+state 21
+
+    (30) condicion -> IF . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS bloque condicion1 SEMICOLON
+
+    OPEN_PARENTHESIS shift and go to state 30
+
+
+state 22
+
+    (25) escritura -> PRINT . OPEN_PARENTHESIS print_arg escritura1 CLOSE_PARENTHESIS SEMICOLON
+
+    OPEN_PARENTHESIS shift and go to state 31
+
+
+state 23
+
+    (6) vars1 -> type_def vars1 .
+
+    OPEN_KEY        reduce using rule 6 (vars1 -> type_def vars1 .)
+
+
+state 24
+
+    (7) type_def -> ID id_list . COLON tipo SEMICOLON
+
+    COLON           shift and go to state 32
+
+
+state 25
+
+    (8) id_list -> empty .
+
+    COLON           reduce using rule 8 (id_list -> empty .)
+
+
+state 26
+
+    (9) id_list -> COMMA . ID id_list
+
+    ID              shift and go to state 33
+
+
+state 27
+
+    (12) bloque -> OPEN_KEY bloque1 CLOSE_KEY .
+
+    $end            reduce using rule 12 (bloque -> OPEN_KEY bloque1 CLOSE_KEY .)
+    ELSE            reduce using rule 12 (bloque -> OPEN_KEY bloque1 CLOSE_KEY .)
+    SEMICOLON       reduce using rule 12 (bloque -> OPEN_KEY bloque1 CLOSE_KEY .)
+
+
+state 28
+
+    (14) bloque1 -> estatuto bloque1 .
+
+    CLOSE_KEY       reduce using rule 14 (bloque1 -> estatuto bloque1 .)
+
+
+state 29
+
+    (18) asignacion -> ID ASSIGN . expresion SEMICOLON
+    (19) expresion -> . exp expresion1
+    (33) exp -> . termino exp1
+    (38) termino -> . factor termino1
+    (43) factor -> . var_cte
+    (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
+    (45) factor -> . factor1 var_cte
+    (48) var_cte -> . CTE_OR
+    (49) var_cte -> . ID
+    (50) var_cte -> . CTE_ARROW_UP
+    (46) factor1 -> . PLUS
+    (47) factor1 -> . MINUS
+
+    OPEN_PARENTHESIS shift and go to state 40
+    CTE_OR          shift and go to state 42
+    ID              shift and go to state 34
+    CTE_ARROW_UP    shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+    expresion                      shift and go to state 35
+    exp                            shift and go to state 36
+    termino                        shift and go to state 37
+    factor                         shift and go to state 38
+    var_cte                        shift and go to state 39
+    factor1                        shift and go to state 41
+
+state 30
+
+    (30) condicion -> IF OPEN_PARENTHESIS . expresion CLOSE_PARENTHESIS bloque condicion1 SEMICOLON
+    (19) expresion -> . exp expresion1
+    (33) exp -> . termino exp1
+    (38) termino -> . factor termino1
+    (43) factor -> . var_cte
+    (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
+    (45) factor -> . factor1 var_cte
+    (48) var_cte -> . CTE_OR
+    (49) var_cte -> . ID
+    (50) var_cte -> . CTE_ARROW_UP
+    (46) factor1 -> . PLUS
+    (47) factor1 -> . MINUS
+
+    OPEN_PARENTHESIS shift and go to state 40
+    CTE_OR          shift and go to state 42
+    ID              shift and go to state 34
+    CTE_ARROW_UP    shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+    expresion                      shift and go to state 46
+    exp                            shift and go to state 36
+    termino                        shift and go to state 37
+    factor                         shift and go to state 38
+    var_cte                        shift and go to state 39
+    factor1                        shift and go to state 41
+
+state 31
+
+    (25) escritura -> PRINT OPEN_PARENTHESIS . print_arg escritura1 CLOSE_PARENTHESIS SEMICOLON
+    (28) print_arg -> . expresion
+    (29) print_arg -> . CTE_STRING
+    (19) expresion -> . exp expresion1
+    (33) exp -> . termino exp1
+    (38) termino -> . factor termino1
+    (43) factor -> . var_cte
+    (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
+    (45) factor -> . factor1 var_cte
+    (48) var_cte -> . CTE_OR
+    (49) var_cte -> . ID
+    (50) var_cte -> . CTE_ARROW_UP
+    (46) factor1 -> . PLUS
+    (47) factor1 -> . MINUS
+
+    CTE_STRING      shift and go to state 49
+    OPEN_PARENTHESIS shift and go to state 40
+    CTE_OR          shift and go to state 42
+    ID              shift and go to state 34
+    CTE_ARROW_UP    shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+    print_arg                      shift and go to state 47
+    expresion                      shift and go to state 48
+    exp                            shift and go to state 36
+    termino                        shift and go to state 37
+    factor                         shift and go to state 38
+    var_cte                        shift and go to state 39
+    factor1                        shift and go to state 41
+
+state 32
+
+    (7) type_def -> ID id_list COLON . tipo SEMICOLON
+    (10) tipo -> . INT
+    (11) tipo -> . FLOAT
+
+    INT             shift and go to state 51
+    FLOAT           shift and go to state 52
+
+    tipo                           shift and go to state 50
+
+state 33
+
+    (9) id_list -> COMMA ID . id_list
+    (8) id_list -> . empty
+    (9) id_list -> . COMMA ID id_list
+    (51) empty -> .
+
+    COMMA           shift and go to state 26
+    COLON           reduce using rule 51 (empty -> .)
+
+    id_list                        shift and go to state 53
+    empty                          shift and go to state 25
+
+state 34
+
+    (49) var_cte -> ID .
+
+    PRODUCT         reduce using rule 49 (var_cte -> ID .)
+    DIVISION        reduce using rule 49 (var_cte -> ID .)
+    PLUS            reduce using rule 49 (var_cte -> ID .)
+    MINUS           reduce using rule 49 (var_cte -> ID .)
+    LESS_THAN       reduce using rule 49 (var_cte -> ID .)
+    GREATER_THAN    reduce using rule 49 (var_cte -> ID .)
+    NOT_EQUAL       reduce using rule 49 (var_cte -> ID .)
+    SEMICOLON       reduce using rule 49 (var_cte -> ID .)
+    CLOSE_PARENTHESIS reduce using rule 49 (var_cte -> ID .)
+    COMMA           reduce using rule 49 (var_cte -> ID .)
+
+
+state 35
+
+    (18) asignacion -> ID ASSIGN expresion . SEMICOLON
+
+    SEMICOLON       shift and go to state 54
+
+
+state 36
+
+    (19) expresion -> exp . expresion1
+    (20) expresion1 -> . list_comp exp
+    (21) expresion1 -> . empty
+    (22) list_comp -> . LESS_THAN
+    (23) list_comp -> . GREATER_THAN
+    (24) list_comp -> . NOT_EQUAL
+    (51) empty -> .
+
+    LESS_THAN       shift and go to state 58
+    GREATER_THAN    shift and go to state 59
+    NOT_EQUAL       shift and go to state 60
+    SEMICOLON       reduce using rule 51 (empty -> .)
+    CLOSE_PARENTHESIS reduce using rule 51 (empty -> .)
+    COMMA           reduce using rule 51 (empty -> .)
+
+    expresion1                     shift and go to state 55
+    list_comp                      shift and go to state 56
+    empty                          shift and go to state 57
+
+state 37
+
+    (33) exp -> termino . exp1
+    (34) exp1 -> . exp2 exp1
+    (35) exp1 -> . empty
+    (36) exp2 -> . PLUS termino
+    (37) exp2 -> . MINUS termino
+    (51) empty -> .
+
+    PLUS            shift and go to state 64
+    MINUS           shift and go to state 65
+    LESS_THAN       reduce using rule 51 (empty -> .)
+    GREATER_THAN    reduce using rule 51 (empty -> .)
+    NOT_EQUAL       reduce using rule 51 (empty -> .)
+    SEMICOLON       reduce using rule 51 (empty -> .)
+    CLOSE_PARENTHESIS reduce using rule 51 (empty -> .)
+    COMMA           reduce using rule 51 (empty -> .)
+
+    exp1                           shift and go to state 61
+    exp2                           shift and go to state 62
+    empty                          shift and go to state 63
+
+state 38
+
+    (38) termino -> factor . termino1
+    (39) termino1 -> . termino2 factor termino1
+    (40) termino1 -> . empty
+    (41) termino2 -> . PRODUCT
+    (42) termino2 -> . DIVISION
+    (51) empty -> .
+
+    PRODUCT         shift and go to state 69
+    DIVISION        shift and go to state 70
+    PLUS            reduce using rule 51 (empty -> .)
+    MINUS           reduce using rule 51 (empty -> .)
+    LESS_THAN       reduce using rule 51 (empty -> .)
+    GREATER_THAN    reduce using rule 51 (empty -> .)
+    NOT_EQUAL       reduce using rule 51 (empty -> .)
+    SEMICOLON       reduce using rule 51 (empty -> .)
+    CLOSE_PARENTHESIS reduce using rule 51 (empty -> .)
+    COMMA           reduce using rule 51 (empty -> .)
+
+    termino1                       shift and go to state 66
+    termino2                       shift and go to state 67
+    empty                          shift and go to state 68
+
+state 39
+
+    (43) factor -> var_cte .
+
+    PRODUCT         reduce using rule 43 (factor -> var_cte .)
+    DIVISION        reduce using rule 43 (factor -> var_cte .)
+    PLUS            reduce using rule 43 (factor -> var_cte .)
+    MINUS           reduce using rule 43 (factor -> var_cte .)
+    LESS_THAN       reduce using rule 43 (factor -> var_cte .)
+    GREATER_THAN    reduce using rule 43 (factor -> var_cte .)
+    NOT_EQUAL       reduce using rule 43 (factor -> var_cte .)
+    SEMICOLON       reduce using rule 43 (factor -> var_cte .)
+    CLOSE_PARENTHESIS reduce using rule 43 (factor -> var_cte .)
+    COMMA           reduce using rule 43 (factor -> var_cte .)
+
+
+state 40
+
+    (44) factor -> OPEN_PARENTHESIS . expresion CLOSE_PARENTHESIS
+    (19) expresion -> . exp expresion1
+    (33) exp -> . termino exp1
+    (38) termino -> . factor termino1
+    (43) factor -> . var_cte
+    (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
+    (45) factor -> . factor1 var_cte
+    (48) var_cte -> . CTE_OR
+    (49) var_cte -> . ID
+    (50) var_cte -> . CTE_ARROW_UP
+    (46) factor1 -> . PLUS
+    (47) factor1 -> . MINUS
+
+    OPEN_PARENTHESIS shift and go to state 40
+    CTE_OR          shift and go to state 42
+    ID              shift and go to state 34
+    CTE_ARROW_UP    shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+    expresion                      shift and go to state 71
+    exp                            shift and go to state 36
+    termino                        shift and go to state 37
+    factor                         shift and go to state 38
+    var_cte                        shift and go to state 39
+    factor1                        shift and go to state 41
+
+state 41
+
+    (45) factor -> factor1 . var_cte
+    (48) var_cte -> . CTE_OR
+    (49) var_cte -> . ID
+    (50) var_cte -> . CTE_ARROW_UP
+
+    CTE_OR          shift and go to state 42
+    ID              shift and go to state 34
+    CTE_ARROW_UP    shift and go to state 43
+
+    var_cte                        shift and go to state 72
+
+state 42
+
+    (48) var_cte -> CTE_OR .
+
+    PRODUCT         reduce using rule 48 (var_cte -> CTE_OR .)
+    DIVISION        reduce using rule 48 (var_cte -> CTE_OR .)
+    PLUS            reduce using rule 48 (var_cte -> CTE_OR .)
+    MINUS           reduce using rule 48 (var_cte -> CTE_OR .)
+    LESS_THAN       reduce using rule 48 (var_cte -> CTE_OR .)
+    GREATER_THAN    reduce using rule 48 (var_cte -> CTE_OR .)
+    NOT_EQUAL       reduce using rule 48 (var_cte -> CTE_OR .)
+    SEMICOLON       reduce using rule 48 (var_cte -> CTE_OR .)
+    CLOSE_PARENTHESIS reduce using rule 48 (var_cte -> CTE_OR .)
+    COMMA           reduce using rule 48 (var_cte -> CTE_OR .)
+
+
+state 43
+
+    (50) var_cte -> CTE_ARROW_UP .
+
+    PRODUCT         reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
+    DIVISION        reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
+    PLUS            reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
+    MINUS           reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
+    LESS_THAN       reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
+    GREATER_THAN    reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
+    NOT_EQUAL       reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
+    SEMICOLON       reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
+    CLOSE_PARENTHESIS reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
+    COMMA           reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
+
+
+state 44
+
+    (46) factor1 -> PLUS .
+
+    CTE_OR          reduce using rule 46 (factor1 -> PLUS .)
+    ID              reduce using rule 46 (factor1 -> PLUS .)
+    CTE_ARROW_UP    reduce using rule 46 (factor1 -> PLUS .)
+
+
+state 45
+
+    (47) factor1 -> MINUS .
+
+    CTE_OR          reduce using rule 47 (factor1 -> MINUS .)
+    ID              reduce using rule 47 (factor1 -> MINUS .)
+    CTE_ARROW_UP    reduce using rule 47 (factor1 -> MINUS .)
+
+
+state 46
+
+    (30) condicion -> IF OPEN_PARENTHESIS expresion . CLOSE_PARENTHESIS bloque condicion1 SEMICOLON
+
+    CLOSE_PARENTHESIS shift and go to state 73
+
+
+state 47
+
+    (25) escritura -> PRINT OPEN_PARENTHESIS print_arg . escritura1 CLOSE_PARENTHESIS SEMICOLON
+    (26) escritura1 -> . COMMA print_arg escritura1
+    (27) escritura1 -> . empty
+    (51) empty -> .
+
+    COMMA           shift and go to state 75
+    CLOSE_PARENTHESIS reduce using rule 51 (empty -> .)
+
+    escritura1                     shift and go to state 74
+    empty                          shift and go to state 76
+
+state 48
+
+    (28) print_arg -> expresion .
+
+    COMMA           reduce using rule 28 (print_arg -> expresion .)
+    CLOSE_PARENTHESIS reduce using rule 28 (print_arg -> expresion .)
+
+
+state 49
+
+    (29) print_arg -> CTE_STRING .
+
+    COMMA           reduce using rule 29 (print_arg -> CTE_STRING .)
+    CLOSE_PARENTHESIS reduce using rule 29 (print_arg -> CTE_STRING .)
+
+
+state 50
+
+    (7) type_def -> ID id_list COLON tipo . SEMICOLON
+
+    SEMICOLON       shift and go to state 77
+
+
+state 51
+
+    (10) tipo -> INT .
+
+    SEMICOLON       reduce using rule 10 (tipo -> INT .)
+
+
+state 52
+
+    (11) tipo -> FLOAT .
+
+    SEMICOLON       reduce using rule 11 (tipo -> FLOAT .)
+
+
+state 53
+
+    (9) id_list -> COMMA ID id_list .
+
+    COLON           reduce using rule 9 (id_list -> COMMA ID id_list .)
+
+
+state 54
+
+    (18) asignacion -> ID ASSIGN expresion SEMICOLON .
+
+    ID              reduce using rule 18 (asignacion -> ID ASSIGN expresion SEMICOLON .)
+    IF              reduce using rule 18 (asignacion -> ID ASSIGN expresion SEMICOLON .)
+    PRINT           reduce using rule 18 (asignacion -> ID ASSIGN expresion SEMICOLON .)
+    CLOSE_KEY       reduce using rule 18 (asignacion -> ID ASSIGN expresion SEMICOLON .)
+
+
+state 55
+
+    (19) expresion -> exp expresion1 .
+
+    SEMICOLON       reduce using rule 19 (expresion -> exp expresion1 .)
+    CLOSE_PARENTHESIS reduce using rule 19 (expresion -> exp expresion1 .)
+    COMMA           reduce using rule 19 (expresion -> exp expresion1 .)
+
+
+state 56
+
+    (20) expresion1 -> list_comp . exp
+    (33) exp -> . termino exp1
+    (38) termino -> . factor termino1
+    (43) factor -> . var_cte
+    (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
+    (45) factor -> . factor1 var_cte
+    (48) var_cte -> . CTE_OR
+    (49) var_cte -> . ID
+    (50) var_cte -> . CTE_ARROW_UP
+    (46) factor1 -> . PLUS
+    (47) factor1 -> . MINUS
+
+    OPEN_PARENTHESIS shift and go to state 40
+    CTE_OR          shift and go to state 42
+    ID              shift and go to state 34
+    CTE_ARROW_UP    shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+    exp                            shift and go to state 78
+    termino                        shift and go to state 37
+    factor                         shift and go to state 38
+    var_cte                        shift and go to state 39
+    factor1                        shift and go to state 41
+
+state 57
+
+    (21) expresion1 -> empty .
+
+    SEMICOLON       reduce using rule 21 (expresion1 -> empty .)
+    CLOSE_PARENTHESIS reduce using rule 21 (expresion1 -> empty .)
+    COMMA           reduce using rule 21 (expresion1 -> empty .)
+
+
+state 58
+
+    (22) list_comp -> LESS_THAN .
+
+    OPEN_PARENTHESIS reduce using rule 22 (list_comp -> LESS_THAN .)
+    CTE_OR          reduce using rule 22 (list_comp -> LESS_THAN .)
+    ID              reduce using rule 22 (list_comp -> LESS_THAN .)
+    CTE_ARROW_UP    reduce using rule 22 (list_comp -> LESS_THAN .)
+    PLUS            reduce using rule 22 (list_comp -> LESS_THAN .)
+    MINUS           reduce using rule 22 (list_comp -> LESS_THAN .)
+
+
+state 59
+
+    (23) list_comp -> GREATER_THAN .
+
+    OPEN_PARENTHESIS reduce using rule 23 (list_comp -> GREATER_THAN .)
+    CTE_OR          reduce using rule 23 (list_comp -> GREATER_THAN .)
+    ID              reduce using rule 23 (list_comp -> GREATER_THAN .)
+    CTE_ARROW_UP    reduce using rule 23 (list_comp -> GREATER_THAN .)
+    PLUS            reduce using rule 23 (list_comp -> GREATER_THAN .)
+    MINUS           reduce using rule 23 (list_comp -> GREATER_THAN .)
+
+
+state 60
+
+    (24) list_comp -> NOT_EQUAL .
+
+    OPEN_PARENTHESIS reduce using rule 24 (list_comp -> NOT_EQUAL .)
+    CTE_OR          reduce using rule 24 (list_comp -> NOT_EQUAL .)
+    ID              reduce using rule 24 (list_comp -> NOT_EQUAL .)
+    CTE_ARROW_UP    reduce using rule 24 (list_comp -> NOT_EQUAL .)
+    PLUS            reduce using rule 24 (list_comp -> NOT_EQUAL .)
+    MINUS           reduce using rule 24 (list_comp -> NOT_EQUAL .)
+
+
+state 61
+
+    (33) exp -> termino exp1 .
+
+    LESS_THAN       reduce using rule 33 (exp -> termino exp1 .)
+    GREATER_THAN    reduce using rule 33 (exp -> termino exp1 .)
+    NOT_EQUAL       reduce using rule 33 (exp -> termino exp1 .)
+    SEMICOLON       reduce using rule 33 (exp -> termino exp1 .)
+    CLOSE_PARENTHESIS reduce using rule 33 (exp -> termino exp1 .)
+    COMMA           reduce using rule 33 (exp -> termino exp1 .)
+
+
+state 62
+
+    (34) exp1 -> exp2 . exp1
+    (34) exp1 -> . exp2 exp1
+    (35) exp1 -> . empty
+    (36) exp2 -> . PLUS termino
+    (37) exp2 -> . MINUS termino
+    (51) empty -> .
+
+    PLUS            shift and go to state 64
+    MINUS           shift and go to state 65
+    LESS_THAN       reduce using rule 51 (empty -> .)
+    GREATER_THAN    reduce using rule 51 (empty -> .)
+    NOT_EQUAL       reduce using rule 51 (empty -> .)
+    SEMICOLON       reduce using rule 51 (empty -> .)
+    CLOSE_PARENTHESIS reduce using rule 51 (empty -> .)
+    COMMA           reduce using rule 51 (empty -> .)
+
+    exp2                           shift and go to state 62
+    exp1                           shift and go to state 79
+    empty                          shift and go to state 63
+
+state 63
+
+    (35) exp1 -> empty .
+
+    LESS_THAN       reduce using rule 35 (exp1 -> empty .)
+    GREATER_THAN    reduce using rule 35 (exp1 -> empty .)
+    NOT_EQUAL       reduce using rule 35 (exp1 -> empty .)
+    SEMICOLON       reduce using rule 35 (exp1 -> empty .)
+    CLOSE_PARENTHESIS reduce using rule 35 (exp1 -> empty .)
+    COMMA           reduce using rule 35 (exp1 -> empty .)
+
+
+state 64
+
+    (36) exp2 -> PLUS . termino
+    (38) termino -> . factor termino1
+    (43) factor -> . var_cte
+    (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
+    (45) factor -> . factor1 var_cte
+    (48) var_cte -> . CTE_OR
+    (49) var_cte -> . ID
+    (50) var_cte -> . CTE_ARROW_UP
+    (46) factor1 -> . PLUS
+    (47) factor1 -> . MINUS
+
+    OPEN_PARENTHESIS shift and go to state 40
+    CTE_OR          shift and go to state 42
+    ID              shift and go to state 34
+    CTE_ARROW_UP    shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+    termino                        shift and go to state 80
+    factor                         shift and go to state 38
+    var_cte                        shift and go to state 39
+    factor1                        shift and go to state 41
+
+state 65
+
+    (37) exp2 -> MINUS . termino
+    (38) termino -> . factor termino1
+    (43) factor -> . var_cte
+    (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
+    (45) factor -> . factor1 var_cte
+    (48) var_cte -> . CTE_OR
+    (49) var_cte -> . ID
+    (50) var_cte -> . CTE_ARROW_UP
+    (46) factor1 -> . PLUS
+    (47) factor1 -> . MINUS
+
+    OPEN_PARENTHESIS shift and go to state 40
+    CTE_OR          shift and go to state 42
+    ID              shift and go to state 34
+    CTE_ARROW_UP    shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+    termino                        shift and go to state 81
+    factor                         shift and go to state 38
+    var_cte                        shift and go to state 39
+    factor1                        shift and go to state 41
+
+state 66
+
+    (38) termino -> factor termino1 .
+
+    PLUS            reduce using rule 38 (termino -> factor termino1 .)
+    MINUS           reduce using rule 38 (termino -> factor termino1 .)
+    LESS_THAN       reduce using rule 38 (termino -> factor termino1 .)
+    GREATER_THAN    reduce using rule 38 (termino -> factor termino1 .)
+    NOT_EQUAL       reduce using rule 38 (termino -> factor termino1 .)
+    SEMICOLON       reduce using rule 38 (termino -> factor termino1 .)
+    CLOSE_PARENTHESIS reduce using rule 38 (termino -> factor termino1 .)
+    COMMA           reduce using rule 38 (termino -> factor termino1 .)
+
+
+state 67
+
+    (39) termino1 -> termino2 . factor termino1
+    (43) factor -> . var_cte
+    (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
+    (45) factor -> . factor1 var_cte
+    (48) var_cte -> . CTE_OR
+    (49) var_cte -> . ID
+    (50) var_cte -> . CTE_ARROW_UP
+    (46) factor1 -> . PLUS
+    (47) factor1 -> . MINUS
+
+    OPEN_PARENTHESIS shift and go to state 40
+    CTE_OR          shift and go to state 42
+    ID              shift and go to state 34
+    CTE_ARROW_UP    shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+    factor                         shift and go to state 82
+    var_cte                        shift and go to state 39
+    factor1                        shift and go to state 41
+
+state 68
+
+    (40) termino1 -> empty .
+
+    PLUS            reduce using rule 40 (termino1 -> empty .)
+    MINUS           reduce using rule 40 (termino1 -> empty .)
+    LESS_THAN       reduce using rule 40 (termino1 -> empty .)
+    GREATER_THAN    reduce using rule 40 (termino1 -> empty .)
+    NOT_EQUAL       reduce using rule 40 (termino1 -> empty .)
+    SEMICOLON       reduce using rule 40 (termino1 -> empty .)
+    CLOSE_PARENTHESIS reduce using rule 40 (termino1 -> empty .)
+    COMMA           reduce using rule 40 (termino1 -> empty .)
+
+
+state 69
+
+    (41) termino2 -> PRODUCT .
+
+    OPEN_PARENTHESIS reduce using rule 41 (termino2 -> PRODUCT .)
+    CTE_OR          reduce using rule 41 (termino2 -> PRODUCT .)
+    ID              reduce using rule 41 (termino2 -> PRODUCT .)
+    CTE_ARROW_UP    reduce using rule 41 (termino2 -> PRODUCT .)
+    PLUS            reduce using rule 41 (termino2 -> PRODUCT .)
+    MINUS           reduce using rule 41 (termino2 -> PRODUCT .)
+
+
+state 70
+
+    (42) termino2 -> DIVISION .
+
+    OPEN_PARENTHESIS reduce using rule 42 (termino2 -> DIVISION .)
+    CTE_OR          reduce using rule 42 (termino2 -> DIVISION .)
+    ID              reduce using rule 42 (termino2 -> DIVISION .)
+    CTE_ARROW_UP    reduce using rule 42 (termino2 -> DIVISION .)
+    PLUS            reduce using rule 42 (termino2 -> DIVISION .)
+    MINUS           reduce using rule 42 (termino2 -> DIVISION .)
+
+
+state 71
+
+    (44) factor -> OPEN_PARENTHESIS expresion . CLOSE_PARENTHESIS
+
+    CLOSE_PARENTHESIS shift and go to state 83
+
+
+state 72
+
+    (45) factor -> factor1 var_cte .
+
+    PRODUCT         reduce using rule 45 (factor -> factor1 var_cte .)
+    DIVISION        reduce using rule 45 (factor -> factor1 var_cte .)
+    PLUS            reduce using rule 45 (factor -> factor1 var_cte .)
+    MINUS           reduce using rule 45 (factor -> factor1 var_cte .)
+    LESS_THAN       reduce using rule 45 (factor -> factor1 var_cte .)
+    GREATER_THAN    reduce using rule 45 (factor -> factor1 var_cte .)
+    NOT_EQUAL       reduce using rule 45 (factor -> factor1 var_cte .)
+    SEMICOLON       reduce using rule 45 (factor -> factor1 var_cte .)
+    CLOSE_PARENTHESIS reduce using rule 45 (factor -> factor1 var_cte .)
+    COMMA           reduce using rule 45 (factor -> factor1 var_cte .)
+
+
+state 73
+
+    (30) condicion -> IF OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS . bloque condicion1 SEMICOLON
+    (12) bloque -> . OPEN_KEY bloque1 CLOSE_KEY
+
+    OPEN_KEY        shift and go to state 9
+
+    bloque                         shift and go to state 84
+
+state 74
+
+    (25) escritura -> PRINT OPEN_PARENTHESIS print_arg escritura1 . CLOSE_PARENTHESIS SEMICOLON
+
+    CLOSE_PARENTHESIS shift and go to state 85
+
+
+state 75
+
+    (26) escritura1 -> COMMA . print_arg escritura1
+    (28) print_arg -> . expresion
+    (29) print_arg -> . CTE_STRING
+    (19) expresion -> . exp expresion1
+    (33) exp -> . termino exp1
+    (38) termino -> . factor termino1
+    (43) factor -> . var_cte
+    (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
+    (45) factor -> . factor1 var_cte
+    (48) var_cte -> . CTE_OR
+    (49) var_cte -> . ID
+    (50) var_cte -> . CTE_ARROW_UP
+    (46) factor1 -> . PLUS
+    (47) factor1 -> . MINUS
+
+    CTE_STRING      shift and go to state 49
+    OPEN_PARENTHESIS shift and go to state 40
+    CTE_OR          shift and go to state 42
+    ID              shift and go to state 34
+    CTE_ARROW_UP    shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+    print_arg                      shift and go to state 86
+    expresion                      shift and go to state 48
+    exp                            shift and go to state 36
+    termino                        shift and go to state 37
+    factor                         shift and go to state 38
+    var_cte                        shift and go to state 39
+    factor1                        shift and go to state 41
+
+state 76
+
+    (27) escritura1 -> empty .
+
+    CLOSE_PARENTHESIS reduce using rule 27 (escritura1 -> empty .)
+
+
+state 77
+
+    (7) type_def -> ID id_list COLON tipo SEMICOLON .
+
+    ID              reduce using rule 7 (type_def -> ID id_list COLON tipo SEMICOLON .)
+    OPEN_KEY        reduce using rule 7 (type_def -> ID id_list COLON tipo SEMICOLON .)
+
+
+state 78
+
+    (20) expresion1 -> list_comp exp .
+
+    SEMICOLON       reduce using rule 20 (expresion1 -> list_comp exp .)
+    CLOSE_PARENTHESIS reduce using rule 20 (expresion1 -> list_comp exp .)
+    COMMA           reduce using rule 20 (expresion1 -> list_comp exp .)
+
+
+state 79
+
+    (34) exp1 -> exp2 exp1 .
+
+    LESS_THAN       reduce using rule 34 (exp1 -> exp2 exp1 .)
+    GREATER_THAN    reduce using rule 34 (exp1 -> exp2 exp1 .)
+    NOT_EQUAL       reduce using rule 34 (exp1 -> exp2 exp1 .)
+    SEMICOLON       reduce using rule 34 (exp1 -> exp2 exp1 .)
+    CLOSE_PARENTHESIS reduce using rule 34 (exp1 -> exp2 exp1 .)
+    COMMA           reduce using rule 34 (exp1 -> exp2 exp1 .)
+
+
+state 80
+
+    (36) exp2 -> PLUS termino .
+
+    PLUS            reduce using rule 36 (exp2 -> PLUS termino .)
+    MINUS           reduce using rule 36 (exp2 -> PLUS termino .)
+    LESS_THAN       reduce using rule 36 (exp2 -> PLUS termino .)
+    GREATER_THAN    reduce using rule 36 (exp2 -> PLUS termino .)
+    NOT_EQUAL       reduce using rule 36 (exp2 -> PLUS termino .)
+    SEMICOLON       reduce using rule 36 (exp2 -> PLUS termino .)
+    CLOSE_PARENTHESIS reduce using rule 36 (exp2 -> PLUS termino .)
+    COMMA           reduce using rule 36 (exp2 -> PLUS termino .)
+
+
+state 81
+
+    (37) exp2 -> MINUS termino .
+
+    PLUS            reduce using rule 37 (exp2 -> MINUS termino .)
+    MINUS           reduce using rule 37 (exp2 -> MINUS termino .)
+    LESS_THAN       reduce using rule 37 (exp2 -> MINUS termino .)
+    GREATER_THAN    reduce using rule 37 (exp2 -> MINUS termino .)
+    NOT_EQUAL       reduce using rule 37 (exp2 -> MINUS termino .)
+    SEMICOLON       reduce using rule 37 (exp2 -> MINUS termino .)
+    CLOSE_PARENTHESIS reduce using rule 37 (exp2 -> MINUS termino .)
+    COMMA           reduce using rule 37 (exp2 -> MINUS termino .)
+
+
+state 82
+
+    (39) termino1 -> termino2 factor . termino1
+    (39) termino1 -> . termino2 factor termino1
+    (40) termino1 -> . empty
+    (41) termino2 -> . PRODUCT
+    (42) termino2 -> . DIVISION
+    (51) empty -> .
+
+    PRODUCT         shift and go to state 69
+    DIVISION        shift and go to state 70
+    PLUS            reduce using rule 51 (empty -> .)
+    MINUS           reduce using rule 51 (empty -> .)
+    LESS_THAN       reduce using rule 51 (empty -> .)
+    GREATER_THAN    reduce using rule 51 (empty -> .)
+    NOT_EQUAL       reduce using rule 51 (empty -> .)
+    SEMICOLON       reduce using rule 51 (empty -> .)
+    CLOSE_PARENTHESIS reduce using rule 51 (empty -> .)
+    COMMA           reduce using rule 51 (empty -> .)
+
+    termino2                       shift and go to state 67
+    termino1                       shift and go to state 87
+    empty                          shift and go to state 68
+
+state 83
+
+    (44) factor -> OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS .
+
+    PRODUCT         reduce using rule 44 (factor -> OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS .)
+    DIVISION        reduce using rule 44 (factor -> OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS .)
+    PLUS            reduce using rule 44 (factor -> OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS .)
+    MINUS           reduce using rule 44 (factor -> OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS .)
+    LESS_THAN       reduce using rule 44 (factor -> OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS .)
+    GREATER_THAN    reduce using rule 44 (factor -> OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS .)
+    NOT_EQUAL       reduce using rule 44 (factor -> OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS .)
+    SEMICOLON       reduce using rule 44 (factor -> OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS .)
+    CLOSE_PARENTHESIS reduce using rule 44 (factor -> OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS .)
+    COMMA           reduce using rule 44 (factor -> OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS .)
+
+
+state 84
+
+    (30) condicion -> IF OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS bloque . condicion1 SEMICOLON
+    (31) condicion1 -> . ELSE bloque
+    (32) condicion1 -> . empty
+    (51) empty -> .
+
+    ELSE            shift and go to state 89
+    SEMICOLON       reduce using rule 51 (empty -> .)
+
+    condicion1                     shift and go to state 88
+    empty                          shift and go to state 90
+
+state 85
+
+    (25) escritura -> PRINT OPEN_PARENTHESIS print_arg escritura1 CLOSE_PARENTHESIS . SEMICOLON
+
+    SEMICOLON       shift and go to state 91
+
+
+state 86
+
+    (26) escritura1 -> COMMA print_arg . escritura1
+    (26) escritura1 -> . COMMA print_arg escritura1
+    (27) escritura1 -> . empty
+    (51) empty -> .
+
+    COMMA           shift and go to state 75
+    CLOSE_PARENTHESIS reduce using rule 51 (empty -> .)
+
+    escritura1                     shift and go to state 92
+    empty                          shift and go to state 76
+
+state 87
+
+    (39) termino1 -> termino2 factor termino1 .
+
+    PLUS            reduce using rule 39 (termino1 -> termino2 factor termino1 .)
+    MINUS           reduce using rule 39 (termino1 -> termino2 factor termino1 .)
+    LESS_THAN       reduce using rule 39 (termino1 -> termino2 factor termino1 .)
+    GREATER_THAN    reduce using rule 39 (termino1 -> termino2 factor termino1 .)
+    NOT_EQUAL       reduce using rule 39 (termino1 -> termino2 factor termino1 .)
+    SEMICOLON       reduce using rule 39 (termino1 -> termino2 factor termino1 .)
+    CLOSE_PARENTHESIS reduce using rule 39 (termino1 -> termino2 factor termino1 .)
+    COMMA           reduce using rule 39 (termino1 -> termino2 factor termino1 .)
+
+
+state 88
+
+    (30) condicion -> IF OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS bloque condicion1 . SEMICOLON
+
+    SEMICOLON       shift and go to state 93
+
+
+state 89
+
+    (31) condicion1 -> ELSE . bloque
+    (12) bloque -> . OPEN_KEY bloque1 CLOSE_KEY
+
+    OPEN_KEY        shift and go to state 9
+
+    bloque                         shift and go to state 94
+
+state 90
+
+    (32) condicion1 -> empty .
+
+    SEMICOLON       reduce using rule 32 (condicion1 -> empty .)
+
+
+state 91
+
+    (25) escritura -> PRINT OPEN_PARENTHESIS print_arg escritura1 CLOSE_PARENTHESIS SEMICOLON .
+
+    ID              reduce using rule 25 (escritura -> PRINT OPEN_PARENTHESIS print_arg escritura1 CLOSE_PARENTHESIS SEMICOLON .)
+    IF              reduce using rule 25 (escritura -> PRINT OPEN_PARENTHESIS print_arg escritura1 CLOSE_PARENTHESIS SEMICOLON .)
+    PRINT           reduce using rule 25 (escritura -> PRINT OPEN_PARENTHESIS print_arg escritura1 CLOSE_PARENTHESIS SEMICOLON .)
+    CLOSE_KEY       reduce using rule 25 (escritura -> PRINT OPEN_PARENTHESIS print_arg escritura1 CLOSE_PARENTHESIS SEMICOLON .)
+
+
+state 92
+
+    (26) escritura1 -> COMMA print_arg escritura1 .
+
+    CLOSE_PARENTHESIS reduce using rule 26 (escritura1 -> COMMA print_arg escritura1 .)
+
+
+state 93
+
+    (30) condicion -> IF OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS bloque condicion1 SEMICOLON .
+
+    ID              reduce using rule 30 (condicion -> IF OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS bloque condicion1 SEMICOLON .)
+    IF              reduce using rule 30 (condicion -> IF OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS bloque condicion1 SEMICOLON .)
+    PRINT           reduce using rule 30 (condicion -> IF OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS bloque condicion1 SEMICOLON .)
+    CLOSE_KEY       reduce using rule 30 (condicion -> IF OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS bloque condicion1 SEMICOLON .)
+
+
+state 94
+
+    (31) condicion1 -> ELSE bloque .
+
+    SEMICOLON       reduce using rule 31 (condicion1 -> ELSE bloque .)
+
