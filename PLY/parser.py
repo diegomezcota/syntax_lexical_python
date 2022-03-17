@@ -89,7 +89,7 @@ def p_escritura1(p):
 
 def p_print_arg(p):
     '''print_arg    : expresion
-                    | CTE_STRING'''
+                    | STRING_VALUE'''
     pass
 
 def p_condicion(p):
@@ -141,9 +141,9 @@ def p_factor1(p):
     pass
 
 def p_var_cte(p):
-    '''var_cte  : CTE_OR
+    '''var_cte  : FLOAT_VALUE
                 | ID
-                | CTE_ARROW_UP'''
+                | INT_VALUE'''
     pass
 
 def p_empty(p):
@@ -160,7 +160,7 @@ def p_error(p):
     
 parser = yacc.yacc()
 
-test_files = ['test1.in', 'test2.in', 'test3.in', 'test4.in']
+test_files = ['test1.in', 'test2.in', 'test3.in', 'test4.in', 'test5.in']
 
 for i, test in enumerate(test_files):
     try:

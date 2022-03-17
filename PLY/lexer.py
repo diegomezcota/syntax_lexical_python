@@ -22,7 +22,10 @@ tokens = [
 'MINUS',
 'PRODUCT',
 'DIVISION',
-'ID'
+'ID',
+'INT_VALUE',
+'FLOAT_VALUE',
+'STRING_VALUE'
 ]
 
 # Regular expression rules for simple tokens
@@ -50,10 +53,7 @@ reserved = {
     'float' : 'FLOAT',
     'program' : 'PROGRAM',
     'var' : 'VAR',
-    'print' : 'PRINT',
-    'cte_string' : 'CTE_STRING',
-    'cte_or' : 'CTE_OR',
-    'cte_arrow_up' : 'CTE_ARROW_UP'
+    'print' : 'PRINT'
 }
 
 tokens += list(reserved.values())
@@ -65,6 +65,21 @@ t_ignore  = ' \t\n'
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
     t.type = reserved.get(t.value,'ID')    # Check for reserved words
+    return t
+
+def t_FLOAT_VALUE(t):
+    r'[0-9]+\.[0-9]+(E[\+-]?[0-9]+)?'
+    t.type = reserved.get(t.value, 'FLOAT_VALUE')
+    return t
+
+def t_INT_VALUE(t):
+    r'[0-9]+'
+    t.type = reserved.get(t.value, 'INT_VALUE')
+    return t
+
+def t_STRING_VALUE(t):
+    r'".*"'
+    t.type = reserved.get(t.value, 'STRING_VALUE')
     return t
 
 # Error handling rule
@@ -88,19 +103,16 @@ names = {}
 
 # Test it out
 data = '''
-program a00824758;
-var a, b, c : int;
-if (a < b) {
-    print(cte_string);
-    print(cte_or);
-    print(cte_arrow_up);
-} else {
-    print(a);
-}
+10.01
+0.01
+10.0E-9
+100000
+"hola que show"
+"ff213904u1fs,f//fsd"
 '''
 
 # print("---PROBANDO ANALIZADOR LÉXICO---")
-# Give the lexer some input
+# # Give the lexer some input
 # lexer.input(data)
 
 # # Tokenize
@@ -109,5 +121,3 @@ if (a < b) {
 #     if not tok: 
 #         break      # No more input
 #     print(tok)
-    
-# print("---PROBANDO ANALIZADOR SINTÁCTICO---")

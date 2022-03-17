@@ -1,0 +1,9 @@
+program diegomez;
+var dasfsaf, dasx, as124, a_12 : int; a, b, c, d : float; diegomez : float;
+{
+    if (b) {
+        a = b <> c + d;
+    } else {
+        c = x;
+    };
+}

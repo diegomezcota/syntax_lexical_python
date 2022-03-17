@@ -31,7 +31,7 @@ Rule 25    escritura -> PRINT OPEN_PARENTHESIS print_arg escritura1 CLOSE_PARENT
 Rule 26    escritura1 -> COMMA print_arg escritura1
 Rule 27    escritura1 -> empty
 Rule 28    print_arg -> expresion
-Rule 29    print_arg -> CTE_STRING
+Rule 29    print_arg -> STRING_VALUE
 Rule 30    condicion -> IF OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS bloque condicion1 SEMICOLON
 Rule 31    condicion1 -> ELSE bloque
 Rule 32    condicion1 -> empty
@@ -50,9 +50,9 @@ Rule 44    factor -> OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
 Rule 45    factor -> factor1 var_cte
 Rule 46    factor1 -> PLUS
 Rule 47    factor1 -> MINUS
-Rule 48    var_cte -> CTE_OR
+Rule 48    var_cte -> FLOAT_VALUE
 Rule 49    var_cte -> ID
-Rule 50    var_cte -> CTE_ARROW_UP
+Rule 50    var_cte -> INT_VALUE
 Rule 51    empty -> <empty>
 
 Terminals, with rules where they appear
@@ -62,16 +62,15 @@ CLOSE_KEY            : 12
 CLOSE_PARENTHESIS    : 25 30 44
 COLON                : 7
 COMMA                : 9 26
-CTE_ARROW_UP         : 50
-CTE_OR               : 48
-CTE_STRING           : 29
 DIVISION             : 42
 ELSE                 : 31
 FLOAT                : 11
+FLOAT_VALUE          : 48
 GREATER_THAN         : 23
 ID                   : 1 7 9 18 49
 IF                   : 30
 INT                  : 10
+INT_VALUE            : 50
 LESS_THAN            : 22
 MINUS                : 37 47
 NOT_EQUAL            : 24
@@ -82,6 +81,7 @@ PRINT                : 25
 PRODUCT              : 41
 PROGRAM              : 1
 SEMICOLON            : 1 7 18 25 30
+STRING_VALUE         : 29
 VAR                  : 4
 error                : 
 
@@ -407,16 +407,16 @@ state 29
     (43) factor -> . var_cte
     (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
     (45) factor -> . factor1 var_cte
-    (48) var_cte -> . CTE_OR
+    (48) var_cte -> . FLOAT_VALUE
     (49) var_cte -> . ID
-    (50) var_cte -> . CTE_ARROW_UP
+    (50) var_cte -> . INT_VALUE
     (46) factor1 -> . PLUS
     (47) factor1 -> . MINUS
 
     OPEN_PARENTHESIS shift and go to state 40
-    CTE_OR          shift and go to state 42
+    FLOAT_VALUE     shift and go to state 42
     ID              shift and go to state 34
-    CTE_ARROW_UP    shift and go to state 43
+    INT_VALUE       shift and go to state 43
     PLUS            shift and go to state 44
     MINUS           shift and go to state 45
 
@@ -436,16 +436,16 @@ state 30
     (43) factor -> . var_cte
     (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
     (45) factor -> . factor1 var_cte
-    (48) var_cte -> . CTE_OR
+    (48) var_cte -> . FLOAT_VALUE
     (49) var_cte -> . ID
-    (50) var_cte -> . CTE_ARROW_UP
+    (50) var_cte -> . INT_VALUE
     (46) factor1 -> . PLUS
     (47) factor1 -> . MINUS
 
     OPEN_PARENTHESIS shift and go to state 40
-    CTE_OR          shift and go to state 42
+    FLOAT_VALUE     shift and go to state 42
     ID              shift and go to state 34
-    CTE_ARROW_UP    shift and go to state 43
+    INT_VALUE       shift and go to state 43
     PLUS            shift and go to state 44
     MINUS           shift and go to state 45
 
@@ -460,24 +460,24 @@ state 31
 
     (25) escritura -> PRINT OPEN_PARENTHESIS . print_arg escritura1 CLOSE_PARENTHESIS SEMICOLON
     (28) print_arg -> . expresion
-    (29) print_arg -> . CTE_STRING
+    (29) print_arg -> . STRING_VALUE
     (19) expresion -> . exp expresion1
     (33) exp -> . termino exp1
     (38) termino -> . factor termino1
     (43) factor -> . var_cte
     (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
     (45) factor -> . factor1 var_cte
-    (48) var_cte -> . CTE_OR
+    (48) var_cte -> . FLOAT_VALUE
     (49) var_cte -> . ID
-    (50) var_cte -> . CTE_ARROW_UP
+    (50) var_cte -> . INT_VALUE
     (46) factor1 -> . PLUS
     (47) factor1 -> . MINUS
 
-    CTE_STRING      shift and go to state 49
+    STRING_VALUE    shift and go to state 49
     OPEN_PARENTHESIS shift and go to state 40
-    CTE_OR          shift and go to state 42
+    FLOAT_VALUE     shift and go to state 42
     ID              shift and go to state 34
-    CTE_ARROW_UP    shift and go to state 43
+    INT_VALUE       shift and go to state 43
     PLUS            shift and go to state 44
     MINUS           shift and go to state 45
 
@@ -628,16 +628,16 @@ state 40
     (43) factor -> . var_cte
     (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
     (45) factor -> . factor1 var_cte
-    (48) var_cte -> . CTE_OR
+    (48) var_cte -> . FLOAT_VALUE
     (49) var_cte -> . ID
-    (50) var_cte -> . CTE_ARROW_UP
+    (50) var_cte -> . INT_VALUE
     (46) factor1 -> . PLUS
     (47) factor1 -> . MINUS
 
     OPEN_PARENTHESIS shift and go to state 40
-    CTE_OR          shift and go to state 42
+    FLOAT_VALUE     shift and go to state 42
     ID              shift and go to state 34
-    CTE_ARROW_UP    shift and go to state 43
+    INT_VALUE       shift and go to state 43
     PLUS            shift and go to state 44
     MINUS           shift and go to state 45
 
@@ -651,64 +651,64 @@ state 40
 state 41
 
     (45) factor -> factor1 . var_cte
-    (48) var_cte -> . CTE_OR
+    (48) var_cte -> . FLOAT_VALUE
     (49) var_cte -> . ID
-    (50) var_cte -> . CTE_ARROW_UP
+    (50) var_cte -> . INT_VALUE
 
-    CTE_OR          shift and go to state 42
+    FLOAT_VALUE     shift and go to state 42
     ID              shift and go to state 34
-    CTE_ARROW_UP    shift and go to state 43
+    INT_VALUE       shift and go to state 43
 
     var_cte                        shift and go to state 72
 
 state 42
 
-    (48) var_cte -> CTE_OR .
+    (48) var_cte -> FLOAT_VALUE .
 
-    PRODUCT         reduce using rule 48 (var_cte -> CTE_OR .)
-    DIVISION        reduce using rule 48 (var_cte -> CTE_OR .)
-    PLUS            reduce using rule 48 (var_cte -> CTE_OR .)
-    MINUS           reduce using rule 48 (var_cte -> CTE_OR .)
-    LESS_THAN       reduce using rule 48 (var_cte -> CTE_OR .)
-    GREATER_THAN    reduce using rule 48 (var_cte -> CTE_OR .)
-    NOT_EQUAL       reduce using rule 48 (var_cte -> CTE_OR .)
-    SEMICOLON       reduce using rule 48 (var_cte -> CTE_OR .)
-    CLOSE_PARENTHESIS reduce using rule 48 (var_cte -> CTE_OR .)
-    COMMA           reduce using rule 48 (var_cte -> CTE_OR .)
+    PRODUCT         reduce using rule 48 (var_cte -> FLOAT_VALUE .)
+    DIVISION        reduce using rule 48 (var_cte -> FLOAT_VALUE .)
+    PLUS            reduce using rule 48 (var_cte -> FLOAT_VALUE .)
+    MINUS           reduce using rule 48 (var_cte -> FLOAT_VALUE .)
+    LESS_THAN       reduce using rule 48 (var_cte -> FLOAT_VALUE .)
+    GREATER_THAN    reduce using rule 48 (var_cte -> FLOAT_VALUE .)
+    NOT_EQUAL       reduce using rule 48 (var_cte -> FLOAT_VALUE .)
+    SEMICOLON       reduce using rule 48 (var_cte -> FLOAT_VALUE .)
+    CLOSE_PARENTHESIS reduce using rule 48 (var_cte -> FLOAT_VALUE .)
+    COMMA           reduce using rule 48 (var_cte -> FLOAT_VALUE .)
 
 
 state 43
 
-    (50) var_cte -> CTE_ARROW_UP .
+    (50) var_cte -> INT_VALUE .
 
-    PRODUCT         reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
-    DIVISION        reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
-    PLUS            reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
-    MINUS           reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
-    LESS_THAN       reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
-    GREATER_THAN    reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
-    NOT_EQUAL       reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
-    SEMICOLON       reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
-    CLOSE_PARENTHESIS reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
-    COMMA           reduce using rule 50 (var_cte -> CTE_ARROW_UP .)
+    PRODUCT         reduce using rule 50 (var_cte -> INT_VALUE .)
+    DIVISION        reduce using rule 50 (var_cte -> INT_VALUE .)
+    PLUS            reduce using rule 50 (var_cte -> INT_VALUE .)
+    MINUS           reduce using rule 50 (var_cte -> INT_VALUE .)
+    LESS_THAN       reduce using rule 50 (var_cte -> INT_VALUE .)
+    GREATER_THAN    reduce using rule 50 (var_cte -> INT_VALUE .)
+    NOT_EQUAL       reduce using rule 50 (var_cte -> INT_VALUE .)
+    SEMICOLON       reduce using rule 50 (var_cte -> INT_VALUE .)
+    CLOSE_PARENTHESIS reduce using rule 50 (var_cte -> INT_VALUE .)
+    COMMA           reduce using rule 50 (var_cte -> INT_VALUE .)
 
 
 state 44
 
     (46) factor1 -> PLUS .
 
-    CTE_OR          reduce using rule 46 (factor1 -> PLUS .)
+    FLOAT_VALUE     reduce using rule 46 (factor1 -> PLUS .)
     ID              reduce using rule 46 (factor1 -> PLUS .)
-    CTE_ARROW_UP    reduce using rule 46 (factor1 -> PLUS .)
+    INT_VALUE       reduce using rule 46 (factor1 -> PLUS .)
 
 
 state 45
 
     (47) factor1 -> MINUS .
 
-    CTE_OR          reduce using rule 47 (factor1 -> MINUS .)
+    FLOAT_VALUE     reduce using rule 47 (factor1 -> MINUS .)
     ID              reduce using rule 47 (factor1 -> MINUS .)
-    CTE_ARROW_UP    reduce using rule 47 (factor1 -> MINUS .)
+    INT_VALUE       reduce using rule 47 (factor1 -> MINUS .)
 
 
 state 46
@@ -741,10 +741,10 @@ state 48
 
 state 49
 
-    (29) print_arg -> CTE_STRING .
+    (29) print_arg -> STRING_VALUE .
 
-    COMMA           reduce using rule 29 (print_arg -> CTE_STRING .)
-    CLOSE_PARENTHESIS reduce using rule 29 (print_arg -> CTE_STRING .)
+    COMMA           reduce using rule 29 (print_arg -> STRING_VALUE .)
+    CLOSE_PARENTHESIS reduce using rule 29 (print_arg -> STRING_VALUE .)
 
 
 state 50
@@ -802,16 +802,16 @@ state 56
     (43) factor -> . var_cte
     (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
     (45) factor -> . factor1 var_cte
-    (48) var_cte -> . CTE_OR
+    (48) var_cte -> . FLOAT_VALUE
     (49) var_cte -> . ID
-    (50) var_cte -> . CTE_ARROW_UP
+    (50) var_cte -> . INT_VALUE
     (46) factor1 -> . PLUS
     (47) factor1 -> . MINUS
 
     OPEN_PARENTHESIS shift and go to state 40
-    CTE_OR          shift and go to state 42
+    FLOAT_VALUE     shift and go to state 42
     ID              shift and go to state 34
-    CTE_ARROW_UP    shift and go to state 43
+    INT_VALUE       shift and go to state 43
     PLUS            shift and go to state 44
     MINUS           shift and go to state 45
 
@@ -835,9 +835,9 @@ state 58
     (22) list_comp -> LESS_THAN .
 
     OPEN_PARENTHESIS reduce using rule 22 (list_comp -> LESS_THAN .)
-    CTE_OR          reduce using rule 22 (list_comp -> LESS_THAN .)
+    FLOAT_VALUE     reduce using rule 22 (list_comp -> LESS_THAN .)
     ID              reduce using rule 22 (list_comp -> LESS_THAN .)
-    CTE_ARROW_UP    reduce using rule 22 (list_comp -> LESS_THAN .)
+    INT_VALUE       reduce using rule 22 (list_comp -> LESS_THAN .)
     PLUS            reduce using rule 22 (list_comp -> LESS_THAN .)
     MINUS           reduce using rule 22 (list_comp -> LESS_THAN .)
 
@@ -847,9 +847,9 @@ state 59
     (23) list_comp -> GREATER_THAN .
 
     OPEN_PARENTHESIS reduce using rule 23 (list_comp -> GREATER_THAN .)
-    CTE_OR          reduce using rule 23 (list_comp -> GREATER_THAN .)
+    FLOAT_VALUE     reduce using rule 23 (list_comp -> GREATER_THAN .)
     ID              reduce using rule 23 (list_comp -> GREATER_THAN .)
-    CTE_ARROW_UP    reduce using rule 23 (list_comp -> GREATER_THAN .)
+    INT_VALUE       reduce using rule 23 (list_comp -> GREATER_THAN .)
     PLUS            reduce using rule 23 (list_comp -> GREATER_THAN .)
     MINUS           reduce using rule 23 (list_comp -> GREATER_THAN .)
 
@@ -859,9 +859,9 @@ state 60
     (24) list_comp -> NOT_EQUAL .
 
     OPEN_PARENTHESIS reduce using rule 24 (list_comp -> NOT_EQUAL .)
-    CTE_OR          reduce using rule 24 (list_comp -> NOT_EQUAL .)
+    FLOAT_VALUE     reduce using rule 24 (list_comp -> NOT_EQUAL .)
     ID              reduce using rule 24 (list_comp -> NOT_EQUAL .)
-    CTE_ARROW_UP    reduce using rule 24 (list_comp -> NOT_EQUAL .)
+    INT_VALUE       reduce using rule 24 (list_comp -> NOT_EQUAL .)
     PLUS            reduce using rule 24 (list_comp -> NOT_EQUAL .)
     MINUS           reduce using rule 24 (list_comp -> NOT_EQUAL .)
 
@@ -919,16 +919,16 @@ state 64
     (43) factor -> . var_cte
     (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
     (45) factor -> . factor1 var_cte
-    (48) var_cte -> . CTE_OR
+    (48) var_cte -> . FLOAT_VALUE
     (49) var_cte -> . ID
-    (50) var_cte -> . CTE_ARROW_UP
+    (50) var_cte -> . INT_VALUE
     (46) factor1 -> . PLUS
     (47) factor1 -> . MINUS
 
     OPEN_PARENTHESIS shift and go to state 40
-    CTE_OR          shift and go to state 42
+    FLOAT_VALUE     shift and go to state 42
     ID              shift and go to state 34
-    CTE_ARROW_UP    shift and go to state 43
+    INT_VALUE       shift and go to state 43
     PLUS            shift and go to state 44
     MINUS           shift and go to state 45
 
@@ -944,16 +944,16 @@ state 65
     (43) factor -> . var_cte
     (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
     (45) factor -> . factor1 var_cte
-    (48) var_cte -> . CTE_OR
+    (48) var_cte -> . FLOAT_VALUE
     (49) var_cte -> . ID
-    (50) var_cte -> . CTE_ARROW_UP
+    (50) var_cte -> . INT_VALUE
     (46) factor1 -> . PLUS
     (47) factor1 -> . MINUS
 
     OPEN_PARENTHESIS shift and go to state 40
-    CTE_OR          shift and go to state 42
+    FLOAT_VALUE     shift and go to state 42
     ID              shift and go to state 34
-    CTE_ARROW_UP    shift and go to state 43
+    INT_VALUE       shift and go to state 43
     PLUS            shift and go to state 44
     MINUS           shift and go to state 45
 
@@ -982,16 +982,16 @@ state 67
     (43) factor -> . var_cte
     (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
     (45) factor -> . factor1 var_cte
-    (48) var_cte -> . CTE_OR
+    (48) var_cte -> . FLOAT_VALUE
     (49) var_cte -> . ID
-    (50) var_cte -> . CTE_ARROW_UP
+    (50) var_cte -> . INT_VALUE
     (46) factor1 -> . PLUS
     (47) factor1 -> . MINUS
 
     OPEN_PARENTHESIS shift and go to state 40
-    CTE_OR          shift and go to state 42
+    FLOAT_VALUE     shift and go to state 42
     ID              shift and go to state 34
-    CTE_ARROW_UP    shift and go to state 43
+    INT_VALUE       shift and go to state 43
     PLUS            shift and go to state 44
     MINUS           shift and go to state 45
 
@@ -1018,9 +1018,9 @@ state 69
     (41) termino2 -> PRODUCT .
 
     OPEN_PARENTHESIS reduce using rule 41 (termino2 -> PRODUCT .)
-    CTE_OR          reduce using rule 41 (termino2 -> PRODUCT .)
+    FLOAT_VALUE     reduce using rule 41 (termino2 -> PRODUCT .)
     ID              reduce using rule 41 (termino2 -> PRODUCT .)
-    CTE_ARROW_UP    reduce using rule 41 (termino2 -> PRODUCT .)
+    INT_VALUE       reduce using rule 41 (termino2 -> PRODUCT .)
     PLUS            reduce using rule 41 (termino2 -> PRODUCT .)
     MINUS           reduce using rule 41 (termino2 -> PRODUCT .)
 
@@ -1030,9 +1030,9 @@ state 70
     (42) termino2 -> DIVISION .
 
     OPEN_PARENTHESIS reduce using rule 42 (termino2 -> DIVISION .)
-    CTE_OR          reduce using rule 42 (termino2 -> DIVISION .)
+    FLOAT_VALUE     reduce using rule 42 (termino2 -> DIVISION .)
     ID              reduce using rule 42 (termino2 -> DIVISION .)
-    CTE_ARROW_UP    reduce using rule 42 (termino2 -> DIVISION .)
+    INT_VALUE       reduce using rule 42 (termino2 -> DIVISION .)
     PLUS            reduce using rule 42 (termino2 -> DIVISION .)
     MINUS           reduce using rule 42 (termino2 -> DIVISION .)
 
@@ -1080,24 +1080,24 @@ state 75
 
     (26) escritura1 -> COMMA . print_arg escritura1
     (28) print_arg -> . expresion
-    (29) print_arg -> . CTE_STRING
+    (29) print_arg -> . STRING_VALUE
     (19) expresion -> . exp expresion1
     (33) exp -> . termino exp1
     (38) termino -> . factor termino1
     (43) factor -> . var_cte
     (44) factor -> . OPEN_PARENTHESIS expresion CLOSE_PARENTHESIS
     (45) factor -> . factor1 var_cte
-    (48) var_cte -> . CTE_OR
+    (48) var_cte -> . FLOAT_VALUE
     (49) var_cte -> . ID
-    (50) var_cte -> . CTE_ARROW_UP
+    (50) var_cte -> . INT_VALUE
     (46) factor1 -> . PLUS
     (47) factor1 -> . MINUS
 
-    CTE_STRING      shift and go to state 49
+    STRING_VALUE    shift and go to state 49
     OPEN_PARENTHESIS shift and go to state 40
-    CTE_OR          shift and go to state 42
+    FLOAT_VALUE     shift and go to state 42
     ID              shift and go to state 34
-    CTE_ARROW_UP    shift and go to state 43
+    INT_VALUE       shift and go to state 43
     PLUS            shift and go to state 44
     MINUS           shift and go to state 45
 
